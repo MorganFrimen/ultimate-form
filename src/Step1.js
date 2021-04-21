@@ -1,9 +1,10 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Form } from './src/components/Form/Form';
-import { Input } from './src/components/Form/input/input';
-import { MainContainer } from './src/components/MainContainer';
+import { PrimaryButton } from './components/Button/PrimaryButton';
+import { Form } from './components/Form/Form';
+import { Input } from './components/Form/input/input';
+import { MainContainer } from './components/MainContainer';
 
 export const Step1 = () => {
   const { register, handleSubmit, erros } = useForm({
@@ -17,6 +18,7 @@ export const Step1 = () => {
       <Form>
         <Input ref={register} id="firstName" type="text" name="firstName" label="First Name" />
         <Input ref={register} id="lastName" type="text" name="lastName" label="Last Name" />
+        <PrimaryButton>Next</PrimaryButton>
       </Form>
     </MainContainer>
   );
