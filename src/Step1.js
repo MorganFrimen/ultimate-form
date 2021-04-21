@@ -10,12 +10,15 @@ export const Step1 = () => {
   const { register, handleSubmit, erros } = useForm({
     mode: 'onBlur',
   });
+  const onSubmit = (data)=>{
+    console.log(data)
+  }
   return (
     <MainContainer>
       <Typography component="h2" variant="h5">
         Step1
       </Typography>
-      <Form>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Input ref={register} id="firstName" type="text" name="firstName" label="First Name" />
         <Input ref={register} id="lastName" type="text" name="lastName" label="Last Name" />
         <PrimaryButton>Next</PrimaryButton>
