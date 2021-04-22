@@ -1,17 +1,34 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers";
 import { useForm } from "react-hook-form";
 import { PrimaryButton } from "./components/Button/PrimaryButton";
 import { Form } from "./components/Form/Form";
 import { Input } from "./components/Form/input/input";
 import { MainContainer } from "./components/MainContainer";
+import * as yup from "yup";
+
+
+const schema = yup.object().shape({
+  firstName: yup
+    .string()
+    .matches(/^([^0-9]*)$/, "First name should not contain numbers")
+    .required("First name is a required field"),
+  lastName: yup
+    .string()
+    .matches(/^([^0-9]*)$/, "Last name should not contain numbers")
+    .required("Last name is a required field"),
+});
 
 export const Step1 = () => {
-  const { register, handleSubmit, erros } = useForm({
+  const history = useHistory();
+  const { register, handleSubmit, errors } = useForm({
     mode: "onBlur",
+    resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    console.log(data);
+    history.push("./step2");
   };
   return (
     <MainContainer>
@@ -25,6 +42,8 @@ export const Step1 = () => {
           type="text"
           name="firstName"
           label="First Name"
+          error={!!errors.firstName}
+          helperText={errors?.firstName?.message}
         />
         <Input
           ref={register}
@@ -32,6 +51,8 @@ export const Step1 = () => {
           type="text"
           name="lastName"
           label="Last Name"
+          error={!!errors.lastName}
+          helperText={errors?.lastName?.message}
         />
         <PrimaryButton>Next</PrimaryButton>
       </Form>
