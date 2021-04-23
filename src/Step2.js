@@ -9,11 +9,11 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers';
 import { PrimaryButton } from './components/Button/PrimaryButton';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { useData } from './DataContext';
 
 const schema = yup.object().shape({
   email: yup.string().email('Email shold have corect format').required('Email is a requerd field'),
 });
-
 const normalizePhoneNumber = (value) => {
   const phoneNumber = parsePhoneNumberFromString(value);
   if (!phoneNumber) {
@@ -23,13 +23,16 @@ const normalizePhoneNumber = (value) => {
 };
 export const Step2 = () => {
   const history = useHistory();
+  const { data, setValues } = useData();
   const { register, handleSubmit, errors, watch } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
+    defaultValues: { email: data.email, phoneNumber: data.phoneNumber },
   });
   const hasPhone = watch('hasPhone');
   const onSubmit = (data) => {
     history.push('./step3');
+    setValues(data);
   };
   return (
     <MainContainer>
