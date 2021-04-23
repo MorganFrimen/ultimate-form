@@ -50,7 +50,15 @@ export const Step2 = () => {
           error={!!errors.email}
           helperText={errors?.email?.message}></Input>
         <FormControlLabel
-          control={<Checkbox name="hasPhone" inputRef={register} color="primary" />}
+          control={
+            <Checkbox
+              defaultValue={data.hasPhone}
+              defaultChecked={data.hasPhone}
+              name="hasPhone"
+              inputRef={register}
+              color="primary"
+            />
+          }
           label="Do you have a phone control"
         />
         {hasPhone && (

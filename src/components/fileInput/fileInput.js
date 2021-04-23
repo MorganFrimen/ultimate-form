@@ -1,7 +1,6 @@
-import { List, ListItemIcon, ListItemText, Paper } from '@material-ui/core';
+import { List, ListItemIcon, ListItemText, Paper, ListItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CloudUpload, InsertDriveFile } from '@material-ui/icons';
-import { ListItem } from 'material-ui';
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import { Controller } from 'react-hook-form';

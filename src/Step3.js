@@ -6,13 +6,18 @@ import { PrimaryButton } from './components/Button/PrimaryButton';
 import { FileInput } from './components/fileInput/fileInput';
 import { Form } from './components/Form/Form';
 import { MainContainer } from './components/MainContainer';
+import { useData } from './DataContext';
 
 export const Step3 = () => {
   const history = useHistory();
-  const { control, handleSubmit } = useForm();
+  const { data, setValues } = useData();
+  const { control, handleSubmit } = useForm({
+    defaultValues: data.files,
+  });
 
   const onSubmit = (data) => {
     history.push('./result');
+    setValues(data);
   };
   return (
     <MainContainer>
