@@ -14,8 +14,9 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { InsertDriveFile } from '@material-ui/icons';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { PrimaryButton } from './components/Button/PrimaryButton';
 import { MainContainer } from './components/MainContainer';
 import { useData } from './DataContext';
@@ -29,11 +30,15 @@ const useStyle = makeStyles({
   },
 });
 export const Result = () => {
+  const [success, setSuccess]=useState(false)
   const style = useStyle();
   const { data } = useData();
   const entries = Object.entries(data).filter((entry) => entry[0] !== 'files');
   const { files } = data;
+
+
   const onSubmit = async () => {
+    
     const formData = new FormData();
     if (data.files) {
       data.files.forEach((file) => {
@@ -43,10 +48,16 @@ export const Result = () => {
     entries.forEach((entry) => {
       formData.append(entry[0], entry[1]);
     });
-    const res = await fetch('http://localhost:1337/', {
+    const res = await fetch('http://localhost:1337/registers/', {
       method: 'POST',
-      body: formData,
+      body: formData
     });
+    const response = await res.json()
+    if(response.status===200){
+      Swal.fire("Greate jod", "success")
+      setSuccess(true)
+    }
+    console.log(success)
   };
   return (
     <MainContainer>

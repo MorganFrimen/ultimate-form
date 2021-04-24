@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
@@ -24,12 +24,11 @@ const normalizePhoneNumber = (value) => {
 export const Step2 = () => {
   const history = useHistory();
   const { data, setValues } = useData();
-  const { register, handleSubmit, errors, watch } = useForm({
+  const { register, handleSubmit, errors} = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
     defaultValues: { email: data.email, phoneNumber: data.phoneNumber },
   });
-  const hasPhone = watch('hasPhone');
   const onSubmit = (data) => {
     history.push('./step3');
     setValues(data);
@@ -49,19 +48,6 @@ export const Step2 = () => {
           required
           error={!!errors.email}
           helperText={errors?.email?.message}></Input>
-        <FormControlLabel
-          control={
-            <Checkbox
-              defaultValue={data.hasPhone}
-              defaultChecked={data.hasPhone}
-              name="hasPhone"
-              inputRef={register}
-              color="primary"
-            />
-          }
-          label="Do you have a phone control"
-        />
-        {hasPhone && (
           <Input
             ref={register}
             id="phoneNumber"
@@ -72,7 +58,6 @@ export const Step2 = () => {
               event.target.value = normalizePhoneNumber(event.target.value);
             }}
           />
-        )}
         <PrimaryButton>Next</PrimaryButton>
       </Form>
     </MainContainer>
