@@ -30,6 +30,7 @@ const useStyle = makeStyles({
   },
 });
 export const Result = () => {
+  
   const [success, setSuccess]=useState(false)
   const style = useStyle();
   const { data } = useData();
@@ -38,7 +39,7 @@ export const Result = () => {
 
 
   const onSubmit = async () => {
-    
+
     const formData = new FormData();
     if (data.files) {
       data.files.forEach((file) => {
@@ -52,8 +53,7 @@ export const Result = () => {
       method: 'POST',
       body: formData
     });
-    const response = await res.json()
-    if(response.status===200){
+    if(res.status===200){
       Swal.fire("Greate jod", "success")
       setSuccess(true)
     }
